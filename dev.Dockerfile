@@ -1,6 +1,6 @@
-ARG GO_VERSION=1.24
+ARG GO_VERSION=1.26.1
 
-FROM golang:${GO_VERSION}-alpine3.22
+FROM golang:${GO_VERSION}-alpine3.23
 
 RUN apk add --no-cache ca-certificates gcc git make musl-dev
 
