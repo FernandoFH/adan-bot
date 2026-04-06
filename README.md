@@ -63,6 +63,44 @@ export PATH="$(go env "GOPATH")/bin:$PATH"
 TELEGRAM_APITOKEN="YOUR_BOT_TOKEN" adan-bot
 ```
 
+### Using Containers (Docker or Podman)
+
+The project includes a `Makefile` that automatically detects if you have `podman` or `docker` installed. If you have both, Podman takes precedence.
+You can also explicitly specify the engine by appending `docker` or `podman` after your target.
+
+To build the image (with auto-detection):
+```shell
+make build-docker
+```
+Or specifying the engine:
+```shell
+make build-docker docker
+```
+
+To run a development environment with live reloading (using `air`):
+```shell
+make dev-env podman
+```
+
+> [!TIP]
+> Build-time options such as the CPU limit are read from your `.env` file automatically — no extra flags needed. See [Environment configuration](#environment-configuration) below.
+
+## Environment configuration
+
+Copy `env.example` to `.env` and fill in the values:
+
+```shell
+cp env.example .env
+```
+
+| Variable | Required | Default | Description |
+|---|---|---|---|
+| `TELEGRAM_API_TOKEN` | ✅ | — | Bot token obtained from [@BotFather](https://t.me/botfather) |
+| `BUILD_CPU_LIMIT` | ❌ | `2` | Max CPUs the container engine may use **while building** an image. Accepts decimals (`1.5`). Set to `0` to remove the limit. |
+
+> [!NOTE]
+> The `.env` file is listed in `.gitignore` and will never be committed. `env.example` is the safe, version-controlled template.
+
 ## Features
 
 - [x] Hola Mundo.
@@ -86,6 +124,7 @@ TELEGRAM_APITOKEN="YOUR_BOT_TOKEN" adan-bot
 - [![Go][Go]][Go-url]
 - [![telegram-api][telegram-api]][telegram-api-url]
 - [![Docker][Docker-shield]][Docker-url]
+- [![Podman][Podman-shield]][Podman-url]
 
 [Go]: https://img.shields.io/badge/Go-3498DB?style=flat&logo=Go&logoColor=white
 [Go-url]: https://go.dev/
@@ -94,6 +133,8 @@ TELEGRAM_APITOKEN="YOUR_BOT_TOKEN" adan-bot
 [codeQL-shield]: https://github.com/ossf/scorecard/workflows/CodeQL/badge.svg?branch=main
 [Docker-shield]: https://img.shields.io/badge/docker-003f8c?style=flat&logo=docker&logoColor=white
 [Docker-url]: https://www.docker.com/
+[Podman-shield]: https://img.shields.io/badge/podman-892ca0?style=flat&logo=podman&logoColor=white
+[Podman-url]: https://podman.io/
 
 ## Contributing
 
